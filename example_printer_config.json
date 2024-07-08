@@ -1,0 +1,4 @@
+{
+    "PRINTER_NAMES": ["printer"],
+    "PRINTER_GATEWAY_ENDPOINT_SUFFIX": "-printer-gateway-endpoint/"
+}
