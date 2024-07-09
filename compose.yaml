@@ -50,6 +50,24 @@ services:
     depends_on:
       - postgres
 
+  icrs-bot:
+    extends:
+      file: ./icrs_bot/registration/compose.yaml
+      service: icrs-bot
+    environment:
+      TZ: Europe/London
+      SERVER_IP: http://database_adapter:8000
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DATABASE_ADAPTER_USER: user
+      DATABASE_ADAPTER_PASSWORD: password
+    ports:
+      - :8000
+    volumes:
+      - ./example_postgres.ini:/app/postgres.ini
+      - ./discord_settings_template.json:/app/settings.json
+    depends_on:
+      - database_adapter
+      - access-server
 
 
 volumes:
