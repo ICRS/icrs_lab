@@ -65,6 +65,7 @@ services:
     volumes:
       - ./example_postgres.ini:/app/postgres.ini
       - ./discord_settings_template.json:/app/settings.json
+      - ./printer_settings_template.json:/app/printer_settings.json
     depends_on:
       - database_adapter
       - access-server
