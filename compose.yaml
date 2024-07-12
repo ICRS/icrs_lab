@@ -28,14 +28,25 @@ services:
       PASSWORD: password
       USERNAME: user
       API_KEY: NA
+      MEME_DB: postgres
     ports:
       - :8000
     volumes:
       - ./example_postgres.ini:/app/postgres.ini
       - ./example_printer_config.json:/app/printer_config.json
     depends_on:
-      - postgres
-  
+      postgres:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/healthz"]
+      # test:  wget --no-verbose -O /dev/null --tries=1 http://0.0.0.0:8000/healthz || exit 1
+      # test: bash -c ':> /dev/tcp/127.0.0.1/8000/healthz' || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+
   access-server:
     extends:
       file: ./icrs_backend/server/compose.yaml
@@ -48,7 +59,8 @@ services:
     volumes:
       - ./example_postgres.ini:/app/postgres.ini
     depends_on:
-      - postgres
+      postgres:
+        condition: service_started
 
   icrs-bot:
     extends:
@@ -67,8 +79,13 @@ services:
       - ./discord_settings_template.json:/app/settings.json
       - ./printer_settings_template.json:/app/printer_settings.json
     depends_on:
-      - database_adapter
-      - access-server
+      database_adapter:
+        condition: service_healthy
+        restart: true
+      access-server:
+        condition: service_started
+
+
 
 
 volumes:
