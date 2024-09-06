@@ -76,8 +76,8 @@ services:
       - :8000
     volumes:
       - ./example_postgres.ini:/app/postgres.ini
-      - ./discord_settings_template.json:/app/settings.json
-      - ./printer_settings_template.json:/app/printer_settings.json
+      - ./discord_settings.json:/app/settings.json
+      - ./printer_settings.json:/app/printer_settings.json
     depends_on:
       database_adapter:
         condition: service_healthy
@@ -90,8 +90,7 @@ services:
 
 volumes:
   db-data:
-    
+
 # secrets:
 #   db-password:
 #     file: db/password.txt
-
