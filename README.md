@@ -1,7 +1,7 @@
-# ICRS Lab
+# ⚒️ ICRS Lab ⚒️
 
 
-## 1️⃣ Set up
+## 🚒 Set up
 
 ### 1. Clone the repository
 
@@ -39,7 +39,7 @@ Install the following
 - Python 3.10+
 - Postman (non essential but recommended)
 
-## 2️⃣ Config
+## ⚙️ Config
 
 ### Create ENV files
 
@@ -61,17 +61,28 @@ Replace `YOUR_DISCORD_SERVER_ID` with the server ID
 Replace `YOUR_ADMIN_ID` with your Discord user ID
 
 
-## 3️⃣ Build and Run
+## 🏃 Build and Run
 
 `docker compose up --build --watch`
 
-this should take about 1 minute for the first build and about 30 seconds for subsequent builds
+This should take about 1 minute for the first build and about 30 seconds for subsequent builds
 
 `ctrl + c` to stop the server
 
 Then go to discord and use the bot (make sure to reboot Discord on the first launch or after adding new commands)
 
-## 4️⃣ Deployment
+Wait about 20 seconds between changes and testing for the bot to rebuild
+
+`http://localhost:8000/docs` for the FastAPI docs
+
+
+### DB
+
+use the VS code extensions to connect to the DB
+with the settings in `example_postgress.ini` and the IP `172.18.0.2:8000/`
+
+
+## 💿 Deployment
 
 TODO: Do this section properly
 
