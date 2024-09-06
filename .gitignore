@@ -1,2 +1,4 @@
 .env
 .venv/
+discord_settings.json
+printer_settings.json
