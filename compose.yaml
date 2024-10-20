@@ -17,6 +17,8 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
       TZ: Europe/London
+    ports:
+      - 5433:5432
 
   database_adapter:
     extends:
@@ -30,7 +32,7 @@ services:
       API_KEY: NA
       MEME_DB: postgres
     ports:
-      - :8000
+      - 8000:8000
     volumes:
       - ./example_postgres.ini:/app/postgres.ini
       - ./example_printer_config.json:/app/printer_config.json
@@ -55,7 +57,7 @@ services:
       TZ: Europe/London
       DATABASE_ADAPTER_IP: http://database_adapter:8000
     ports:
-      - :8000
+      - 8001:8000
     volumes:
       - ./example_postgres.ini:/app/postgres.ini
     depends_on:
@@ -85,8 +87,15 @@ services:
       access-server:
         condition: service_started
 
-
-
+  registration-page:
+    extends:
+      file: ./icrs_backend/registration_page/compose.yaml
+      service: registration-page
+    depends_on:
+      database_adapter:
+        condition: service_started
+    ports:
+      - 3999:80
 
 volumes:
   db-data:
