@@ -97,6 +97,30 @@ services:
     ports:
       - 3999:80
 
+  printer-notification:
+    extends:
+      file: ./icrs_bot/printer_notification/compose.yaml
+      service: printer-notification
+    environment:
+      TZ: Europe/London
+      DATABASE_ADAPTER_ENDPOINT: http://database_adapter:8000
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      RABBITMQ_PORT: 5672
+    ports:
+      - :8000
+    volumes:
+      - ./discord_settings.json:/app/settings.json
+      - ./rabbitmq.json:/app/rabbitmq.json
+    depends_on:
+      database_adapter:
+        condition: service_healthy
+        restart: true
+
+  rabbitmq:
+    extends:
+      file: ./icrs_bot/printer_notification/compose.yaml
+      service: rabbitmq
+  
 volumes:
   db-data:
 
