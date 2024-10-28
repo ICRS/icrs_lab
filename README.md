@@ -1,5 +1,8 @@
 # ⚒️ ICRS Lab ⚒️
 
+## 🚒 Set up Script
+Run `python project_setup.py` and follow the instructions.
+
 
 ## 🚒 Set up
 
