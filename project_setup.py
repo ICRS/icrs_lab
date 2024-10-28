@@ -28,7 +28,7 @@ def get_input(prompt, default=None):
 def main():
     print("Welcome to the ICRS Lab Project Setup CLI!")
 
-    GIT_INIT = get_input("Run git init: [Y/N]", "Y").upper() == "Y"
+    GIT_INIT = get_input("Run git submodule init: [Y/N]", "Y").upper() == "Y"
     if GIT_INIT:
         if not check_git_installed():
             print("Git not installed, please install git and try the script again!")
