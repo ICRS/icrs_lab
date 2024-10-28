@@ -106,6 +106,7 @@ services:
       DATABASE_ADAPTER_ENDPOINT: http://database_adapter:8000
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       RABBITMQ_PORT: 5672
+      RABBITMQ_HOST: rabbitmq
     ports:
       - :8000
     volumes:
