@@ -19,7 +19,8 @@ def check_git_installed():
 def get_input(prompt, default=None):
     """Get input from user with an optional default value."""
     if default:
-        prompt += f" [{default}]: "
+        prompt += f" [default = {default}] "
+    prompt += ": "
     user_input = input(prompt).strip()
     return user_input if user_input else default
 
@@ -89,8 +90,8 @@ def main():
 
     print("Creating env file")
     with open(".env", "w") as f:
-        f.write(f"DISCORD_TOKEN={DISCORD_TOKEN}")
-        f.write(f"MEME_DB={MEME_DB}")
+        f.write(f"DISCORD_TOKEN={DISCORD_TOKEN}\n")
+        f.write(f"MEME_DB={MEME_DB}\n")
 
     print("Finished env file\n")
     print("============================================================")
