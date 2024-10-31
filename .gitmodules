@@ -4,6 +4,7 @@
 [submodule "icrs_bot"]
 	path = icrs_bot
 	url = git@github.com:ICRS/icroboticsbot.git
+	branch = master
 [submodule "icrs_backend"]
 	path = icrs_backend
 	url = git@github.com:ICRS/icrs_security.git
