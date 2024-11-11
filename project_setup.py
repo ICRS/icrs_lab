@@ -25,6 +25,25 @@ def get_input(prompt, default=None):
     return user_input if user_input else default
 
 
+def get_current_envs():
+    try:
+        with open(".env", "r") as f:
+            lines = f.readlines()
+            print(lines)
+            return {
+                b[0]: b[1] for a in lines if (c:=a.strip()) and len(b := c.split("=", maxsplit=1))
+            }
+    except Exception:
+        return {}
+
+
+required_envs = {
+    "DISCORD_TOKEN": ["Enter Discord Token", None,],
+    "NOTION_SECRET": ["Enter NOTION API Key", None,],
+    "NOTION_DATABASE_ID": ["Enter NOTION target database ID", None],
+}
+
+
 def main():
     print("Welcome to the ICRS Lab Project Setup CLI!")
 
@@ -37,10 +56,20 @@ def main():
             ["git", "submodule", "update", "--recursive", "--remote", "--init"]
         )
 
-    DISCORD_TOKEN = get_input("Enter Discord Token")
-    if not DISCORD_TOKEN:
-        print("No Discord Token Provided!")
-        exit(1)
+    current_envs = get_current_envs()
+    print(current_envs)
+    update_env_keys = required_envs.keys() - current_envs.keys()
+    if not update_env_keys:
+        print("All env variables are up to date!")
+
+    else:
+        for k in required_envs.keys() - current_envs.keys():
+            v = required_envs[k]
+            var = get_input(v[0], v[1])
+            if v[1] is None and var is None:
+                print(f"No {k} Provided!")
+                exit(1)
+            current_envs[k] = var
 
     DISCORD_GUILD_ID = get_input("Discord Guild Id")
     if not DISCORD_GUILD_ID:
@@ -51,9 +80,6 @@ def main():
     if not ADMIN_ID:
         print("No Discord ADMIN ID Provided!")
         exit(1)
-
-    NOTION_SECRET = get_input("Enter NOTION API Key", "PLACEHOLDER KEY")
-    NOTION_DATABASE_ID = get_input("Enter NOTION target database ID", "PLACEHOLDER ID")
 
     MEME_DB = "postgres"
 
@@ -90,16 +116,15 @@ def main():
 
     print("Finished RabbitMQ Settings json\n")
     print("============================================================")
+    if update_env_keys:
+        print("Creating env file")
+        with open(".env", "w") as f:
+            f.write(f"MEME_DB={MEME_DB}\n")
+            for k, v in current_envs.items():
+                f.write(f"{k}={v}\n")
 
-    print("Creating env file")
-    with open(".env", "w") as f:
-        f.write(f"DISCORD_TOKEN={DISCORD_TOKEN}\n")
-        f.write(f"MEME_DB={MEME_DB}\n")
-        f.write(f"NOTION_SECRET={NOTION_SECRET}\n")
-        f.write(f"NOTION_DATABASE_ID={NOTION_DATABASE_ID}\n")
-
-    print("Finished env file\n")
-    print("============================================================")
+        print("Finished env file\n")
+        print("============================================================")
 
     print("Creating printer settings json")
     printer_settings_json = {
