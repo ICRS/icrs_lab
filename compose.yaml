@@ -74,6 +74,7 @@ services:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_ADAPTER_USER: user
       DATABASE_ADAPTER_PASSWORD: password
+      NOTION_IP: http://notion-manager:8000
     ports:
       - :8000
     volumes:
@@ -116,6 +117,17 @@ services:
       database_adapter:
         condition: service_healthy
         restart: true
+
+  notion-manager:
+    extends:
+      file: ./icrs_backend/notion_manager/compose.yaml
+      service: notion-manager
+    environment:
+      TZ: Europe/London
+      NOTION_DATABASE_ID: ${NOTION_DATABASE_ID}
+      NOTION_SECRET: ${NOTION_SECRET}
+    ports:
+      - 8003:8000
 
   rabbitmq:
     extends:
