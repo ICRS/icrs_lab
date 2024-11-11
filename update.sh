@@ -2,7 +2,7 @@ cd icrs_backend;
 git switch main; git pull; cd ..;
 
 cd icrs_bot;
-git switch main; git pull; cd ..;
+git switch master; git pull; cd ..;
 
 cd icrs_card_reader;
 git switch main; git pull; cd ..;
