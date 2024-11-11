@@ -52,6 +52,9 @@ def main():
         print("No Discord ADMIN ID Provided!")
         exit(1)
 
+    NOTION_SECRET = get_input("Enter NOTION API Key", "PLACEHOLDER KEY")
+    NOTION_DATABASE_ID = get_input("Enter NOTION target database ID", "PLACEHOLDER ID")
+
     MEME_DB = "postgres"
 
     # RabbitMQ Settings
@@ -92,6 +95,8 @@ def main():
     with open(".env", "w") as f:
         f.write(f"DISCORD_TOKEN={DISCORD_TOKEN}\n")
         f.write(f"MEME_DB={MEME_DB}\n")
+        f.write(f"NOTION_SECRET={NOTION_SECRET}\n")
+        f.write(f"NOTION_DATABASE_ID={NOTION_DATABASE_ID}\n")
 
     print("Finished env file\n")
     print("============================================================")
