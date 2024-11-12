@@ -1,7 +1,27 @@
 # ⚒️ ICRS Lab ⚒️
 
-## 🚒 Set up Script
-Run `python project_setup.py` and follow the instructions.
+## 👋 Introduction
+
+This is the main code base for the Lab infrastructure which keeps ICRS running. ICRS is the (Imperial College Robotics Society)[https://linktr.ee/icrobotics], and needs quite a lot of custom infrastructure to keep running and make efficient. 
+
+### ⭐ Features
+
+- Live-streaming Bambu Lab printer statuses to Discord, and live-streaming
+- Only allowing printing once a card has been scanned
+- A hand-held card scanner to see if members are inducted
+- A Discord Quiz platform for inductions
+- (Published at ISAM 2024)[https://www.researchgate.net/publication/385302645_Automated_Student_3D_Printing_Verification_Process]
+
+[//]: <> ( TODO: add Images )
+
+### 🧩 Components
+
+- **🤖 Lab Manager Discord Bot**: Uses Discord as a UI for members and staff
+- **🗃️ ICRS LAB Back end**: 
+- **⛃ ICRS Database**: Database for everything
+- **💳 ICRS Card Scanner**: Can scan HF Cards and display a member's status
+
+[//]: <> ( TODO: add system diagram )
 
 
 ## 🚒 Set up
@@ -16,6 +36,8 @@ For the first time: `git submodule update --recursive --remote`
 
 Every update after that: `git submodule update --recursive`
 
+Run `python project_setup.py` and follow the instructions.
+
 
 ### 2. Recommended VScode extensions
 
@@ -25,7 +47,7 @@ Every update after that: `git submodule update --recursive`
 - Pylance
 - Docker
 
-### 3. Set up discord Bot
+### 3. Set up Discord Bot
 
 [https://discord.com/developers/applications/](https://letmegooglethat.com/?q=how+to+set+up+a+discord+bot)
 
@@ -40,13 +62,13 @@ Install the following
 - Docker
 - Docker-compose
 - Python 3.10+
-- Postman (non essential but recommended)
+- Postman (non-essential but recommended)
 
 ## ⚙️ Config
 
 ### Create ENV files
 
-copy paste the follow files and remove the "template" part of teh file name:
+copy paste the following files and remove the "template" part of teh file name:
 
 - `.env_template` -> `.env`
 - `discord_settings_template.json` -> `discord_settings.json`
@@ -72,7 +94,7 @@ This should take about 1 minute for the first build and about 30 seconds for sub
 
 `ctrl + c` to stop the server
 
-Then go to discord and use the bot (make sure to reboot Discord on the first launch or after adding new commands)
+Then go to Discord and use the bot (make sure to reboot Discord on the first launch or after adding new commands)
 
 Wait about 20 seconds between changes and testing for the bot to rebuild
 
@@ -85,7 +107,7 @@ use the VS code extensions to connect to the DB
 with the settings in `example_postgress.ini` and the IP `172.18.0.2:8000/`
 
 
-## 💿 Deployment
+## 🚀 Deployment
 
 TODO: Do this section properly
 
@@ -100,3 +122,8 @@ docker-compose up --build -d
 ```
 
 Delete Pod on Kubernetes
+
+
+## 📝 Paper
+
+https://www.researchgate.net/publication/385302645_Automated_Student_3D_Printing_Verification_Process
