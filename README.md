@@ -1,8 +1,21 @@
 # ⚒️ ICRS Lab ⚒️
 
+![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![Espressif](https://img.shields.io/badge/espressif-E7352C.svg?style=for-the-badge&logo=espressif&logoColor=white)
+
+
+[//]: <> ( TODO: add DDWRT, NFC cards,  )
+
 ## 👋 Introduction
 
-This is the main code base for the Lab infrastructure which keeps ICRS running. ICRS is the (Imperial College Robotics Society)[https://linktr.ee/icrobotics], and needs quite a lot of custom infrastructure to keep running and make efficient. 
+This is the main code base for the Lab infrastructure which keeps ICRS running. ICRS is the [Imperial College Robotics Society](https://linktr.ee/icrobotics), helping about 500 members to make cool robotics projects!
 
 ### ⭐ Features
 
@@ -10,14 +23,14 @@ This is the main code base for the Lab infrastructure which keeps ICRS running. 
 - Only allowing printing once a card has been scanned
 - A hand-held card scanner to see if members are inducted
 - A Discord Quiz platform for inductions
-- (Published at ISAM 2024)[https://www.researchgate.net/publication/385302645_Automated_Student_3D_Printing_Verification_Process]
+- [Published at ISAM 2024](https://www.researchgate.net/publication/385302645_Automated_Student_3D_Printing_Verification_Process)
 
 [//]: <> ( TODO: add Images )
 
 ### 🧩 Components
 
 - **🤖 Lab Manager Discord Bot**: Uses Discord as a UI for members and staff
-- **🗃️ ICRS LAB Back end**: 
+- **🗃️ ICRS LAB Back end**: Handles Communication between Discord, the Database, notion and APIs
 - **⛃ ICRS Database**: Database for everything
 - **💳 ICRS Card Scanner**: Can scan HF Cards and display a member's status
 
