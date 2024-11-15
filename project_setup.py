@@ -55,6 +55,9 @@ def main():
         subprocess.run(
             ["git", "submodule", "update", "--recursive", "--remote", "--init"]
         )
+        subprocess.run(
+            ["bash", "update.sh"]
+        )
 
     current_envs = get_current_envs()
     print(current_envs)

@@ -13,5 +13,5 @@ git switch main; git pull; cd ..;
 cd icrs_printer_release_button;
 git switch main; git pull; cd ..;
 
-git add .;
-git commit -m "Update all submodules";
+# git add .;
+# git commit -m "Update all submodules";
