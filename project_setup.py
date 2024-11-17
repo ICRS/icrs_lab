@@ -25,21 +25,37 @@ def get_input(prompt, default=None):
     return user_input if user_input else default
 
 
-def get_current_envs():
+def get_current_envs() -> dict[str, str | None]:
     try:
         with open(".env", "r") as f:
             lines = f.readlines()
             print(lines)
             return {
-                b[0]: b[1] for a in lines if (c:=a.strip()) and len(b := c.split("=", maxsplit=1))
+                b[0]: b[1]
+                for a in lines
+                if (c := a.strip()) and len(b := c.split("=", maxsplit=1))
             }
     except Exception:
         return {}
 
 
-required_envs = {
-    "DISCORD_TOKEN": ["Enter Discord Token", None,],
-    "NOTION_SECRET": ["Enter NOTION API Key", None,],
+def get_json_from_file(filename: str) -> dict[str, str]:
+    try:
+        with open(filename, "r") as f:
+            return dict(json.load(f))
+    except Exception:
+        return {}
+
+
+required_envs: dict[str, list[str | None]] = {
+    "DISCORD_TOKEN": [
+        "Enter Discord Token",
+        None,
+    ],
+    "NOTION_SECRET": [
+        "Enter NOTION API Key",
+        None,
+    ],
     "NOTION_DATABASE_ID": ["Enter NOTION target database ID", None],
 }
 
@@ -55,9 +71,7 @@ def main():
         subprocess.run(
             ["git", "submodule", "update", "--recursive", "--remote", "--init"]
         )
-        subprocess.run(
-            ["bash", "update.sh"]
-        )
+        subprocess.run(["bash", "update.sh"])
 
     current_envs = get_current_envs()
     print(current_envs)
@@ -74,17 +88,50 @@ def main():
                 exit(1)
             current_envs[k] = var
 
-    DISCORD_GUILD_ID = get_input("Discord Guild Id")
-    if not DISCORD_GUILD_ID:
-        print("No Discord GUILD ID Provided!")
-        exit(1)
+    print("\n============================================================")
+    print("Setting Up Discord files")
+    print("============================================================\n")
 
-    ADMIN_ID = get_input("Discord Admin Id")
-    if not ADMIN_ID:
-        print("No Discord ADMIN ID Provided!")
-        exit(1)
+    def set_discord_settings(exisiting_settings):
+        DISCORD_GUILD_ID = get_input("Discord Guild Id")
+        if not DISCORD_GUILD_ID:
+            print("No Discord GUILD ID Provided!")
+            exit(1)
 
-    MEME_DB = "postgres"
+        ADMIN_ID = get_input("Discord Admin Id")
+        if not ADMIN_ID:
+            print("No Discord ADMIN ID Provided!")
+            exit(1)
+
+        PREFIX = "!"
+        discord_settings_json = {
+            "PREFIX": PREFIX,
+            "DISCORD_GUILD_ID": DISCORD_GUILD_ID,
+            "ADMIN_ID": ADMIN_ID,
+        }
+        print("Creating Discord Settings json")
+        with open("discord_settings.json", "w") as f:
+            json.dump(discord_settings_json, f)
+
+        print("Finished Discord Settings json\n")
+
+    discord_settings = set(["PREFIX", "DISCORD_GUILD_ID", "ADMIN_ID"])
+    existing_discord_settings = get_json_from_file("discord_settings.json")
+    if existing_discord_settings and len(
+        discord_settings - existing_discord_settings.keys()
+    ) != len(discord_settings):
+        msg = (
+            f"Discord Settings Found\n{existing_discord_settings}\n"
+            "Do you want to overwrite: [Y/N]"
+        )
+        if get_input(msg, "N").upper() == "Y":
+            set_discord_settings(exisiting_settings=existing_discord_settings)
+    else:
+        set_discord_settings(exisiting_settings=existing_discord_settings)
+
+    print("\n============================================================")
+    print("Setting Up RabbitMQ Config File")
+    print("============================================================\n")
 
     # RabbitMQ Settings
     EXCHANGE_NAME = get_input("Enter RabbitMQ Exchange name", "printer")
@@ -92,33 +139,14 @@ def main():
     # Printer Settings config
     PRINTER_NAMES = ["test1"]
     PRINTER_GATEWAY_ENDPOINT_SUFFIX = "-printer-gateway-endpoint/"
-
-    print("============================================================")
-    print("Generating files")
-    print("============================================================")
-    PREFIX = "!"
-    discord_settings_json = {
-        "PREFIX": PREFIX,
-        "DISCORD_GUILD_ID": DISCORD_GUILD_ID,
-        "ADMIN_ID": ADMIN_ID,
-    }
-    print("Creating Discord Settings json")
-    with open("discord_settings.json", "w") as f:
-        json.dump(discord_settings_json, f)
-
-    print("Finished Discord Settings json\n")
-
-    print("============================================================")
-
     rabbitmq_json = {"EXCHANGE_NAME": EXCHANGE_NAME}
-
-    print("Creating RabbitMQ json file")
 
     with open("rabbitmq.json", "w") as f:
         json.dump(rabbitmq_json, f)
 
     print("Finished RabbitMQ Settings json\n")
     print("============================================================")
+    MEME_DB = "postgres"
     if update_env_keys:
         print("Creating env file")
         with open(".env", "w") as f:
