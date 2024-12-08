@@ -134,6 +134,28 @@ services:
       file: ./icrs_bot/printer_notification/compose.yaml
       service: rabbitmq
   
+  nginx:
+    extends:
+      file: ./icrs_backend/nginx/compose.yaml
+      service: nginx
+    ports:
+      - 9000:80
+    depends_on:
+      pgadmin:
+        condition: service_started
+      grafana:
+        condition: service_started
+
+  pgadmin:
+    extends:
+      file: ./icrs_backend/pgadmin/compose.yaml
+      service: pgadmin
+
+  grafana:
+    extends:
+      file: ./icrs_backend/grafana/compose.yaml
+      service: grafana
+
 volumes:
   db-data:
 
