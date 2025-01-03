@@ -145,6 +145,8 @@ services:
         condition: service_started
       grafana:
         condition: service_started
+      access-server:
+        condition: service_started
 
   pgadmin:
     extends:
