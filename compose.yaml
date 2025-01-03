@@ -156,6 +156,15 @@ services:
       file: ./icrs_backend/grafana/compose.yaml
       service: grafana
 
+  printer-scanner-router:
+    extends:
+      file: ./icrs_backend/printer_scanner_router/compose.yaml
+      service: printer-scanner-router
+    volumes:
+      - ./example_printer_config.json:/app/printer_config.json
+    ports:
+      - 8004:8000
+
 volumes:
   db-data:
 
