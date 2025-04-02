@@ -1,16 +1,16 @@
 [submodule "icrs_database"]
 	path = icrs_database
-	url = git@github.com:ICRS/icrs_database.git
+	url = https://github.com/ICRS/icrs_database.git
 [submodule "icrs_bot"]
 	path = icrs_bot
-	url = git@github.com:ICRS/icroboticsbot.git
+	url = https://github.com/ICRS/icroboticsbot.git
 	branch = master
 [submodule "icrs_backend"]
 	path = icrs_backend
-	url = git@github.com:ICRS/icrs_security.git
+	url = https://github.com/ICRS/icrs_security.git
 [submodule "icrs_card_reader"]
 	path = icrs_card_reader
-	url = git@github.com:ICRS/icrs_card_reader.git
+	url = https://github.com/ICRS/icrs_card_reader.git
 [submodule "icrs_printer_release_button"]
 	path = icrs_printer_release_button
-	url = git@github.com:ICRS/icrs_printer_release_button.git
+	url = https://github.com/ICRS/icrs_printer_release_button.git
