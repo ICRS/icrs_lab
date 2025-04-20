@@ -4,3 +4,6 @@ discord_settings.json
 printer_settings.json
 rabbitmq.json
 
+*.zip
+*.png
+*.csv
