@@ -135,7 +135,7 @@ git pull;
 docker-compose up --build -d
 ```
 
-Delete Pod on Kubernetes
+Delete Pod on Kubernetes.
 
 
 ## 📝 Paper
